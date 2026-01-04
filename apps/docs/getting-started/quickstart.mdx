@@ -1,0 +1,48 @@
+---
+title: Quickstart
+description: "Getting started with Director"
+icon: rocket
+---
+
+# Prerequisites
+
+- Works on latest **MacOS** and **Ubuntu Linux**.
+- `node` & `npm` for the CLI.
+- `uvx` for most of the servers. 
+- [Claude](https://claude.ai/download), [Cursor](https://www.cursor.com/downloads) or [VSCode](https://code.visualstudio.com/download) installed. (if you'd like director to configure them automatically).
+
+
+# Quickstart
+
+The fastest way to try director is to use the install script. This will download the dependencies, run the latest version of director and open up the studio in your browser:
+
+```bash
+curl -LsSf https://director.run/install.sh | sh
+director quickstart
+```
+
+# Alternative Methods
+
+## Installing Locally
+
+If you'd like to install director locally, you can do so via `npm`.
+
+```bash
+npm install -g @director.run/cli
+director serve # start the gateway
+director studio # open the studio in your browser
+```
+
+## Getting started with the CLI
+
+If you'd like to set up director without going through the UI, you can do so via the CLI. For more detailed information, check out the [CLI Reference](../concepts/cli).
+
+```bash
+npm install -g @director.run/cli
+director serve # start the gateway
+director create my-first-playbook # create a playbook
+director add my-first-playbook --entry fetch # add the fetch server to the playbook
+director connect my-first-playbook --target claude # connect the playbook to Claude
+director connect my-first-playbook --target cursor # connect the playbook to Cursor
+director connect my-first-playbook # print the manual connection details
+```

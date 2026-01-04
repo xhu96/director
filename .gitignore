@@ -1,0 +1,56 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+
+# production
+build
+dist
+dist-storybook/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun-debug.log*
+
+# local env files
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.turbo
+*.db
+
+public/sw*
+public/swe-worker*
+
+# **/bun.lockb
+# **/bun.lock
+director.config.development.yaml
+.secrets/
+.playwright-mcp
+.claude
+scripts/mcp-setup.sh
+./mcp.json.claude
+mcp.json

@@ -1,0 +1,191 @@
+---
+title: "Configuration Files"
+sidebarTitle: Configuration
+description: "Learn about Director's configuration files."
+icon: gear
+---
+
+
+Director doesn't use a database, everything is stored in a `director.config.yaml` file. The easiest way to manage this file is via the [Studio UI](https://studio.director.run) or the [CLI](../concepts/cli). But you can of course edit it manually. 
+
+*Note: If you'd like to manually edit the configuration files, you'll need to make sure you restart the service for the changes to take effect.*
+
+# Search Paths
+
+Director will search for the configuration file in the following paths (in order):
+
+- `./director.config.yaml`
+- `~/.director/director.config.yaml`
+
+# Configuration File Reference
+
+## Example
+
+Your configuration file is a YAML file that defines playbooks and client connections. Here's a example of how to structure it:
+
+```yaml
+#
+# Server config
+#
+server:
+  # Defaults to 3673
+  port: 1234
+
+#
+# Client <> Playbook mappings (enforced on startup)
+#
+clients:
+  cursor: [ demo ]
+
+#
+# Playbooks (MCP servers, prompts, etc.)
+#
+playbooks:
+  - id: demo
+    name: demo
+    description: A demonstration playbook
+
+    #
+    # Prompts
+    #
+    prompts:
+      - name: changelog
+        title: changelog
+        description: ""
+        body: "write a short changelog based on recent changes on the
+          director-run/director repository and the post it to to the slack
+          #general channel. Make sure the message will format correctly inside
+          of slack"
+
+    #
+    # MCP Servers
+    #
+    servers:
+      # GitHub server
+      - name: github
+        type: http
+        url: https://api.githubcopilot.com/mcp/
+        headers:
+          Authorization: Bearer
+            <YOUR_GITHUB_TOKEN>
+        # This server is enabled
+        disabled: false
+        # Only include the tools you need
+        tools:
+          include:
+            - list_commits
+            - search_pull_requests
+            - get_latest_release
+        # Prompts from MCP server are disabled by default
+        prompts:
+          include: []
+
+        
+      - name: slack
+        type: stdio
+        command: npx
+        args:
+          - -y
+          - "@modelcontextprotocol/server-slack"
+        env:
+          SLACK_TEAM_ID: <YOUR_SLACK_TEAM_ID>
+          SLACK_BOT_TOKEN: <YOUR_SLACK_BOT_TOKEN>
+          SLACK_CHANNEL_IDS: <YOUR_SLACK_CHANNEL_ID>
+        # This server is enabled
+        disabled: false
+        # Only include the tools you need
+        tools:
+          include:
+            - slack_list_channels
+            - slack_post_message
+        # Prompts from MCP server are disabled by default
+        prompts:
+          include: []
+```
+
+## Server Configuration
+
+By default, Director will start a server on port 3673. You can change this by setting the `port` option in the `server` section.
+
+```yaml
+server:
+  port: 1234
+```
+
+## Client Connections
+
+The `clients` section defines which playbooks are available to which MCP clients. This mapping is enforced on startup:
+
+```yaml
+clients:
+  claude-code: [my-playbook, another-playbook]
+  cursor: [my-playbook]
+  vscode: [development-tools]
+```
+
+Supported client identifiers:
+- `claude-code` - Claude Code (command-line tool)
+- `claude` - Claude Desktop app
+- `cursor` - Cursor IDE
+- `vscode` - Visual Studio Code
+
+## Playbooks
+
+Each playbook supports the following fields:
+
+- **id** (required): A unique identifier for the playbook
+- **name** (required): The name of the playbook
+- **description** (optional): The description of the playbook
+- **servers** (optional): The MCP servers to include in the playbook
+- **prompts** (optional): The prompts to include in the playbook
+
+### Prompts
+
+Prompts are used to invoke the playbook from a MCP client. Each prompt supports the following fields:
+- **name** (required): The name of the prompt
+- **title** (optional): The title of the prompt
+- **description** (optional): The description of the prompt
+- **body** (optional): The body of the prompt
+
+### MCP Servers
+
+MCP servers are used to provide the tools and prompts to the playbook. Each server supports the following fields:
+- **name** (required): The name of the server
+- **type** (required): The type of the server (either `stdio` or `http`).
+- **url** (optional): The URL of the server (only for http servers)
+- **headers** (optional): The headers to pass to the server (only for http servers)
+- **command** (optional): The command to execute for stdio-based servers
+- **args** (optional): The command-line arguments for stdio-based servers
+- **env** (optional): The environment variables to pass to the server
+- **disabled** (optional): Whether the server is disabled (default: false)
+- **tools** (optional): The tools to include in the server
+- **prompts** (optional): The prompts to include in the server
+
+#### Tools
+
+The `tools.include` option allows you to select only specific tools from an MCP server, which helps preserve context by limiting the available tool set:
+
+```yaml
+servers:
+  - name: github
+    type: http
+    url: https://api.githubcopilot.com/mcp/
+    tools:
+      include: [create_pr, search_code] # Only expose these specific tools
+```
+
+This is particularly useful when:
+- You want to limit capabilities for security reasons (e.g., read-only access)
+- You need to preserve context by only exposing relevant tools for a specific task
+- You want to prevent accidental use of destructive operations
+
+#### Prompts
+
+The `prompts.include` option allows you to select only specific prompts from an MCP server, which helps preserve context by limiting the available prompt set:
+
+```yaml
+servers:
+  - name: github
+    prompts:
+      include: [create_pr, search_code] # Only expose these specific prompts
+```

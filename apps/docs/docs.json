@@ -1,0 +1,70 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Director",
+  "seo": {
+    "metatags": {
+      "robots": "noindex"
+    }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": ["getting-started/welcome", "getting-started/quickstart"]
+      },
+      {
+        "group": "Concepts",
+        "pages": [
+          "concepts/architecture",
+          "concepts/cli",
+          "concepts/studio",
+          "concepts/registry",
+          "concepts/configuration"
+        ]
+      },
+      {
+        "group": "Typescript SDK",
+        "pages": ["sdk/gateway", "sdk/mcp", "sdk/client-configurator"]
+      },
+      {
+        "group": "Experimental",
+        "pages": ["experimental/docker"]
+      },
+      {
+        "group": "Project",
+        "pages": ["project/roadmap", "project/contributing"]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/theworkingco",
+      "github": "https://github.com/director-run/director"
+    }
+  },
+  "theme": "mint",
+  "colors": {
+    "primary": "#1a211e",
+    "light": "#efeded",
+    "dark": "#1a211e"
+  },
+  "background": {
+    "color": {
+      "light": "#fcfcfc",
+      "dark": "#131111"
+    }
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "fonts": {
+    "heading": {
+      "family": "Inter"
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.svg"
+}

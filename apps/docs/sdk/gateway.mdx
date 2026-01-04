@@ -1,0 +1,44 @@
+---
+sidebarTitle: Gateway
+title: "Gateway API Reference"
+---
+
+The Gateway API allows you to start and manage a director instance programmatically. The source code is available in [apps/gateway](https://github.com/director-run/director/tree/main/apps/gateway).
+
+## Examples
+
+```typescript
+import { Gateway, GatewayConfig } from "@director.run/sdk";
+
+// Start the gateway
+const gateway = await Gateway.start({
+  config: await GatewayConfig.createMemoryBasedConfig({
+    defaults: {
+      server: {
+        port: 3673,
+      },
+      registry: {
+        url: "https://registry.director.run",
+      },
+      telemetry: {
+        writeKey: "",
+        enabled: false,
+      },
+    },
+  }),
+  baseUrl: "http://localhost:3673",
+});
+
+// Add a new playbook
+await gateway.playbookStore.create({
+  name: "test",
+  servers: [
+    {
+      name: "notion",
+      type: "http",
+      url: "https://mcp.notion.com/mcp",
+    },
+  ],
+});
+```
+

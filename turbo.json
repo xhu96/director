@@ -1,0 +1,58 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": ["DATABASE_URL"]
+    },
+    "@director.run/cli#build": {
+      "dependsOn": ["^build", "@director.run/studio#build"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**"],
+      "env": ["DATABASE_URL"]
+    },
+    "@director.run/gateway#build": {
+      "dependsOn": ["@director.run/studio#build"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**"]
+    },
+    "@director.run/studio#build": {
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**", "dist-storybook/**"]
+    },
+    "dev": {
+      "inputs": ["$TURBO_DEFAULT$"],
+      "persistent": true,
+      "cache": false
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "format": {
+      "dependsOn": ["^format"]
+    },
+    "spellcheck": {
+      "dependsOn": ["^spellcheck"]
+    },
+    "start": {
+      "persistent": true,
+      "cache": false
+    },
+    "clean": {
+      "dependsOn": ["^clean"]
+    },
+    "test": {
+      "cache": false
+    },
+    "release": {
+      "cache": false,
+      "env": ["NPM_CONFIG_TOKEN"]
+    }
+  }
+}

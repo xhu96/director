@@ -1,0 +1,54 @@
+---
+title: Registry
+icon: book
+---
+
+The registry is a collection of servers that are available to be used in the Gateway. It is fully [open source](https://github.com/director-run/director/tree/main/apps/registry) and does not require authentication. We are currently prioritising other parts of director until the official [MCP Registry](https://github.com/modelcontextprotocol/registry) matures.
+
+## Accessing the Registry
+
+The best way to access the registry is in your browser via the [Studio](https://studio.director.run/library). Or alternatively, you can use the [CLI](./cli):
+
+```bash
+# List all servers in the registry
+director registry ls
+
+# Adding a server from the registry
+director add my-proxy --entry google-drive
+```
+
+
+## Adding a server to the Registry
+
+We re-populate the registry on a regular basis from the [seed file](https://github.com/director-run/director/tree/main/apps/registry/src/seed/entries.ts). If you'd like to add a new entry, please add it to the file and open a PR. Here's an example of an entry:
+
+```js
+  {
+    name: "notion",
+    title: "Notion",
+    description:
+      "Connect to Notion API, enabling advanced automation and interaction capabilities for developers and tools.",
+    isOfficial: true,
+    icon: "https://registry.director.run/notion.svg",
+    homepage: "https://github.com/makenotion/notion-mcp-server",
+    transport: {
+      type: "stdio",
+      command: "npx",
+      args: ["-y", "@notionhq/notion-mcp-server"],
+      env: {
+        OPENAPI_MCP_HEADERS:
+          '{"Authorization": "Bearer <notion-bearer-token>", "Notion-Version": "2022-06-28" }',
+      },
+    },
+    parameters: [
+      {
+        name: "notion-bearer-token",
+        description:
+          "Get a bearer token from [Notion Settings](https://www.notion.so/profile/integrations)",
+        type: "string",
+        required: true,
+        password: true,
+      },
+    ],
+  }
+```

@@ -1,0 +1,63 @@
+{
+  "name": "@director.run/cli",
+  "type": "module",
+  "version": "1.1.1",
+  "files": ["dist", "README.md", "package.json"],
+  "bin": {
+    "director": "./dist/cli.js"
+  },
+  "author": "Barnaby Malet <barnaby@director.run>",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/director-run/director"
+  },
+  "description": "Playbooks for AI agents",
+  "homepage": "https://director.run",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "clean": "rm -rf .turbo dist/*",
+    "test": "bun run vitest  --fileParallelism=false",
+    "cli": "LOG_LEVEL=debug NODE_ENV=development bun run bin/cli.ts",
+    "cli:dev": "NODE_ENV=development bun --watch bin/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "bun run clean && bun build --production --target=node bin/cli.ts --outdir dist && cp -r ../studio/dist dist/studio",
+    "release": "changeset publish",
+    "dev": "bun --watch bin/cli.ts",
+    "spellcheck": "cspell \"**\""
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "devDependencies": {
+    "@director.run/client-configurator": "workspace:*",
+    "@director.run/gateway": "workspace:*",
+    "@director.run/mcp": "workspace:*",
+    "@director.run/registry": "workspace:*",
+    "@director.run/utilities": "workspace:*",
+    "@inquirer/prompts": "^7.5.2",
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "@segment/analytics-node": "^2.3.0",
+    "@trpc/server": "^11.0.2",
+    "@types/semver": "^7.5.8",
+    "@types/update-notifier": "^6.0.8",
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "cspell": "^9.2.2",
+    "node-machine-id": "^1.1.12",
+    "semver": "^7.7.2",
+    "superjson": "^2.2.2",
+    "type-fest": "^4.40.0",
+    "typescript": "^5.8.3",
+    "update-notifier": "^7.3.1",
+    "vitest": "^4.0.15",
+    "zod": "^3.25.76",
+    "zx": "^8.8.0"
+  }
+}

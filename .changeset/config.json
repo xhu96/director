@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "director-run/director"
+    }
+  ],
+  "commit": false,
+  "fixed": [["@director.run/cli", "@director.run/sdk", "@director.run/docker"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["@director.run/studio", "@director.run/mcp-container"]
+}

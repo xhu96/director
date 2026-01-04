@@ -1,0 +1,48 @@
+name: Production Deploy
+
+on:
+  push:
+    branches: [production]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/__ci.yml
+    with:
+      build: false
+
+  deploy-app:
+    name: Gateway
+    needs: ci
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/__cloudrun-deploy.yml
+    with:
+      environment: production
+      service_name: director-production-app
+      working-directory: apps/app
+      migrations: true
+      seed_enabled: false
+
+  deploy-registry:
+    name: Registry
+    needs: ci
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/__cloudrun-deploy.yml
+    with:
+      environment: production
+      service_name: director-production-registry
+      working-directory: apps/registry
+      migrations: true
+      seed_enabled: true

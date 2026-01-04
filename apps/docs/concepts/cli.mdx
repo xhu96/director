@@ -1,0 +1,159 @@
+---
+sidebarTitle: CLI
+title: "CLI Reference"
+icon: terminal
+---
+
+The CLI, along with the [Studio](./studio), are the primary ways to interact with director. The CLI is distributed as a standalone package, and can be installed via [npm](https://www.npmjs.com/package/@director.run/cli).
+
+# Installation
+
+```bash
+$ curl -LsSf https://director.run/install.sh | sh
+```
+
+# Usage
+
+```bash
+$ director --help
+
+Playbooks for your AI agent
+
+USAGE
+  director <command> [subcommand] [flags]
+
+CORE COMMANDS
+   quickstart                                    Start the gateway and open the studio in your browser
+   serve                                         Start the web service
+   studio                                        Open the UI in your browser
+   ls                                            List playbooks
+   get <playbookId> [serverName]                 Show playbook details
+   auth <playbookId> <server>                    Authenticate a server
+   create <name>                                 Create a new playbook
+   destroy <playbookId>                          Delete a playbook
+   connect <playbookId> [options]                Connect a playbook to a MCP client
+   disconnect <playbookId> [options]             Disconnect a playbook from an MCP client
+   add <playbookId> [options]                    Add a server to a playbook
+   remove <playbookId> <serverName>              Remove a server from a playbook
+   update <playbookId> [serverName] [options]    Update playbook attributes
+   http2stdio <url>                              Proxy an HTTP connection (sse or streamable) to a stdio stream
+   env [options]                                 Print environment variables
+   status                                        Get the status of the director
+
+REGISTRY
+   registry ls                                   List all available servers in the registry
+   registry get <entryName>                      Get detailed information about a registry item
+   registry readme <entryName>                   Print the readme for a registry item
+
+MCP
+   mcp list-tools <playbookId>                   List tools on a playbook
+   mcp get-tool <playbookId> <toolName>          Get the details of a tool
+   mcp call-tool <playbookId> <toolName> [options]  Call a tool on a playbook
+
+PROMPTS
+   prompts ls <playbookId>                       List all prompts for a playbook
+   prompts add <playbookId>                      Add a new prompt to a playbook
+   prompts edit <playbookId> <promptName>        Edit an existing prompt
+   prompts remove <playbookId> <promptName>      Remove a prompt from a playbook
+   prompts get <playbookId> <promptName>         Show the details of a specific prompt
+
+FLAGS
+   -V, --version                                 output the version number
+
+EXAMPLES
+  $ director create my-playbook                 Create a new playbook
+  $ director add my-playbook --entry fetch      Add a server to a playbook
+  $ director connect my-playbook --target claude  Connect my-playbook to claude
+```
+
+
+# Examples
+
+
+## Start the gateway
+
+```bash
+$ director serve
+
+         _ _               _
+        | (_)             | |
+      __| |_ _ __ ___  ___| |_ ___  _ __
+     / _' | | '__/ _ \/ __| __/ _ \| '__|
+    | (_| | | | |  __/ (__| || (_) | |
+     \__,_|_|_|  \___|\___|\__\___/|_|
+
+
+[18:16:21] INFO (Gateway): starting director gateway
+[18:16:21] INFO (Gateway): director gateway running on port 3673
+```
+
+## Create a playbook
+```bash
+$ director create my-first-playbook 
+playbook my-first-playbook created
+```
+
+## Add a server to the playbook
+```bash
+$ director add my-first-playbook --entry fetch
+adding fetch to my-first-playbook
+✔ Entry fetched.
+✔ Registry entry fetch added to my-first-playbook
+```
+
+## Connect the playbook to a client
+```bash
+# connect the playbook to Claude automatically
+$ director connect my-first-playbook -t claude 
+[18:19:06] INFO (client-configurator/claude): reading config from /Users/barnaby/Library/Application Support/Claude/claude_desktop_config.json
+[18:19:06] INFO (client-configurator/claude): installing my-first-playbook
+[18:19:06] INFO (client-configurator/claude): writing config to /Users/barnaby/Library/Application Support/Claude/claude_desktop_config.json
+[18:19:06] INFO (client-configurator/claude): restarting claude
+[18:19:06] INFO (restartApp): restarting Claude...
+[18:19:08] INFO (restartApp): Claude has been restarted
+undefined
+
+# print the manual connection details
+$ director connect my-first-playbook 
+
+--------------------------------
+Connection Details for 'my-first-playbook'
+--------------------------------
+
+Note: if you'd like to connect to a client automatically, run:
+director connect my-first-playbook --target <target>
+
+HTTP Streamable: http://localhost:3673/my-first-playbook/mcp
+HTTP SSE: http://localhost:3673/my-first-playbook/sse
+Stdio: {
+  "command": "npx",
+  "args": [
+    "-y",
+    "@director.run/cli",
+    "http2stdio",
+    "http://localhost:3673/my-first-playbook/mcp"
+  ],
+  "env": {
+    "LOG_LEVEL": "silent"
+  }
+}
+```
+
+## Get the details of a playbook
+```bash
+# list all the playbooks
+$ director ls
+┌──────────────────┬──────────────────┬────────────────────────────────────────────┐
+│ id               │ name             │ path                                       │
+│ my-first-playbook │ my-first-playbook │ http://localhost:3673/my-first-playbook/mcp │
+└──────────────────┴──────────────────┴────────────────────────────────────────────┘
+
+# get the details of a single playbook
+$ director get my-first-playbook 
+id=my-first-proxy
+name=my-first-proxy
+┌───────┬───────────┬──────────────────────┐
+│ name  │ transport │ url/command          │
+│ fetch │ stdio     │ uvx mcp-server-fetch │
+└───────┴───────────┴──────────────────────┘
+```

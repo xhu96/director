@@ -1,0 +1,24 @@
+{
+  "name": "@director.run/mcp-container",
+  "version": "0.0.0",
+  "private": true,
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo 'wip'"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@director.run/mcp": "workspace:*",
+    "vitest": "^3.1.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "@modelcontextprotocol/server-slack": "^2025.4.25",
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2"
+  }
+}
