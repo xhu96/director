@@ -27,7 +27,6 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![ci](https://github.com/director-run/director/workflows/CI/badge.svg)](https://github.com/director-run/director/actions/workflows/ci.yml)
 [![Release](https://github.com/director-run/director/workflows/Release/badge.svg)](https://github.com/director-run/director/actions/workflows/release.yml)
-[![npm](https://img.shields.io/npm/v/@director.run/cli.svg)](https://www.npmjs.com/package/@director.run/cli)
 
 </div>
 
@@ -192,12 +191,14 @@ await gateway.playbookStore.create({
 
 ### External Apps
 
+### External Apps
+
 - [`apps/gateway`](./apps/gateway/README.md) - Core gateway and playbook logic
-- [`apps/cli`](./apps/cli/README.md) - The command-line interface, the primary way to interact with Director. Available on [npm](https://www.npmjs.com/package/@director.run/cli).
-- [`apps/sdk`](./apps/sdk/README.md) - The Typescript SDK, available on [npm](https://www.npmjs.com/package/@director.run/sdk).
-- [`apps/docker`](./apps/docker/README.md) - The Director docker image, which allows you to run Director (and all MCP servers) securely inside a container. Available on [Docker Hub](https://hub.docker.com/r/barnaby/director).
-- [`apps/docs`](./apps/docs/README.md) - Project documentation hosted at [https://docs.director.run](https://docs.director.run)
-- [`apps/registry`](./apps/registry/README.md) - Backend for the registry hosted at [https://registry.director.run](https://registry.director.run)
+- [`apps/cli`](./apps/cli/README.md) - The command-line interface
+- [`apps/sdk`](./apps/sdk/README.md) - The Typescript SDK
+- [`apps/docker`](./apps/docker/README.md) - Docker configuration
+- [`apps/docs`](./apps/docs/README.md) - Project documentation
+- [`apps/registry`](./apps/registry/README.md) - Registry backend service
 - [`apps/studio`](./apps/studio/README.md) - Director frontend application
 
 ### Internal Packages
@@ -214,7 +215,7 @@ _This is a monorepo managed by [Turborepo](https://turbo.build/)._
 If you're using director, have any ideas, or just want to chat about MCP, we'd love to chat:
 
 - 💬 Join our [Discord](https://discord.gg/kWZGvWks)
-- 📧 Send us an [Email](mailto:hello@director.run)
+
 - 🐛 Report a [Bug](https://github.com/director-run/director/issues)
 - 🐦 Follow us on [X / Twitter](https://x.com/barnabymalet)
 

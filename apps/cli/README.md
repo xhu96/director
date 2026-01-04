@@ -1,8 +1,6 @@
 <h1 align="center">Director</h1>
 <p align="center">MCP Playbooks for AI agents</p>
 
-<p align="center"><code>curl -LsSf https://director.run/install.sh | sh</code></p>
-
 ---
 
 <div align="center">
@@ -10,7 +8,6 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![ci](https://github.com/director-run/director/workflows/CI/badge.svg)](https://github.com/director-run/director/actions/workflows/ci.yml)
 [![Release](https://github.com/director-run/director/workflows/Release/badge.svg)](https://github.com/director-run/director/actions/workflows/release.yml)
-[![npm](https://img.shields.io/npm/v/@director.run/cli.svg)](https://www.npmjs.com/package/@director.run/cli)
 
 </div>
 
@@ -24,7 +21,6 @@ Playbooks are portable, declarative YAML files that can easily be shared (or com
 
 [![Watch the video](https://image.mux.com/LkXOkiGsfatE6XLxda8ZEm02ydvxJ1K004y5EgqYV7dus/thumbnail.png?time=60)](https://player.mux.com/LkXOkiGsfatE6XLxda8ZEm02ydvxJ1K004y5EgqYV7dus)
 
-
 ## Key Features
 
 - 📚 **Playbooks** - Maintain sets of tools, prompts and config for different tasks or environments.
@@ -32,9 +28,9 @@ Playbooks are portable, declarative YAML files that can easily be shared (or com
 - 🔗 **Shareable** - Playbooks are flat files which can be shared or committed to version control easily.
 - 🏠 **Local-First** - Director is local-first, designed to easily run on your own machine or infrastructure.
 - 🔑 **Unified OAuth** - Connect to OAuth MCPs centrally, and use them across all of your agents.
-- 🎯 **Tool Filtering** - Select only the MCP tools that are required for the specific task, preserving context.  
+- 🎯 **Tool Filtering** - Select only the MCP tools that are required for the specific task, preserving context.
 - 📋 **Declarative** - Like terraform for AI agents, Director will enforce playbook to client mapping on startup.
-- 🔧 **Flexibility** - You can configure director through the UI, by editing the config file, through the CLI or even using the Typescript SDK.  
+- 🔧 **Flexibility** - You can configure director through the UI, by editing the config file, through the CLI or even using the Typescript SDK.
 - 📊 **Observability** - Centralized JSON logging, that allows you to understand exactly what your agent is doing.
 - 🔌 **MCP Compliant** - Just works with any MCP server or client. Up to date with the latest MCP spec.
 
@@ -52,16 +48,16 @@ $ director quickstart
 
 ## Playbooks
 
-A playbook is a set of tools, prompts and configuration, used to provide specific capabilities to your agent. Under the hood, playbooks are built on top of the MCP tools & prompts primitives. 
+A playbook is a set of tools, prompts and configuration, used to provide specific capabilities to your agent. Under the hood, playbooks are built on top of the MCP tools & prompts primitives.
 
-The easiest way to author a playbook is via the UI (`director studio`). But you can also use the CLI or write the config manually (see below). You can have many playbooks, typically one per task or per environment. Connecting them is one click in the UI (or one CLI command / config entry), connections are enforced on startup. 
+The easiest way to author a playbook is via the UI (`director studio`). But you can also use the CLI or write the config manually (see below). You can have many playbooks, typically one per task or per environment. Connecting them is one click in the UI (or one CLI command / config entry), connections are enforced on startup.
 
 ```yaml
 #
 # Client <> Playbook mappings (enforced on startup)
 #
 clients:
-  cursor: [ demo ]
+  cursor: [demo]
 
 playbooks:
   - id: demo
@@ -102,7 +98,6 @@ playbooks:
         prompts:
           include: []
 
-        
       - name: slack
         type: stdio
         command: npx
@@ -134,6 +129,7 @@ At a high level, Director is a service that sits between your agents and MCP ser
 # Usage
 
 ## Installation
+
 ```bash
 # Install the director CLI + dependencies (node, npm & uvx) via the 1-liner:
 $ curl -LsSf https://director.run/install.sh | sh
@@ -221,7 +217,7 @@ server:
 # Client <> Playbook mappings (enforced on startup)
 #
 clients:
-  cursor: [ demo ]
+  cursor: [demo]
 
 playbooks:
   - id: demo
@@ -262,7 +258,6 @@ playbooks:
         prompts:
           include: []
 
-        
       - name: slack
         type: stdio
         command: npx
@@ -336,15 +331,16 @@ await gateway.playbookStore.create({
 - [`packages/utilities`](./packages/utilities/README.md) - Shared utilities used across all packages and apps
 - [`packages/design`](./packages/design/README.md) - Design system: reusable UI components, hooks, and styles for all Director apps
 
-*This is a monorepo managed by [Turborepo](https://turbo.build/).*
+_This is a monorepo managed by [Turborepo](https://turbo.build/)._
 
 # Community
 
 If you're using director, have any ideas, or just want to chat about MCP, we'd love to chat:
+
 - 💬 Join our [Discord](https://discord.gg/kWZGvWks)
 - 📧 Send us an [Email](mailto:hello@director.run)
 - 🐛 Report a [Bug](https://github.com/director-run/director/issues)
-- 🐦 Follow us on [X / Twitter](https://x.com/barnabymalet) 
+- 🐦 Follow us on [X / Twitter](https://x.com/barnabymalet)
 
 # Contributing
 
