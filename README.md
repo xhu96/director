@@ -2,7 +2,10 @@
 <p align="center">MCP Playbooks for AI agents</p>
 <p align="center"><em>Enhanced fork with Redis caching for horizontal scaling</em></p>
 
-<p align="center"><code>curl -LsSf https://director.run/install.sh | sh</code></p>
+<p align="center">
+  <a href="./DEPLOYMENT.md"><strong>Read the Deployment Guide »</strong></a> OR 
+  <a href="./CONTRIBUTING.md"><strong>Start Contributing »</strong></a>
+</p>
 
 ---
 
@@ -50,11 +53,11 @@ https://github.com/user-attachments/assets/cafc0902-a854-4ee8-ac89-b7535f10c93d
 # Quickstart
 
 ```bash
-# Install Director
-$ curl -LsSf https://director.run/install.sh | sh
+# Install dependencies
+bun install
 
-# Start the onboarding flow
-$ director quickstart
+# Start the gateway (with Redis if configured)
+bun run serve
 ```
 
 # Core Concepts
@@ -75,15 +78,18 @@ At a high level, Director is a service that sits between your agents and MCP ser
 
 ## Installation
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup or [DEPLOYMENT.md](./DEPLOYMENT.md) for production deployment.
+
 ```bash
-# Install the director CLI + dependencies (node, npm & uvx) via the 1-liner:
-$ curl -LsSf https://director.run/install.sh | sh
+# Clone the repo
+git clone https://github.com/xhu96/director.git
+cd director
 
-# Alternatively, install through npm:
-$ npm install -g @director.run/cli
+# Install dependencies
+bun install
 
-# Start director & open the UI
-$ director quickstart
+# Start the server
+bun run serve
 ```
 
 ## The Studio (Web UI)
