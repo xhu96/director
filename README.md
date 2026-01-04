@@ -7,6 +7,8 @@
   <a href="./CONTRIBUTING.md"><strong>Start Contributing »</strong></a>
 </p>
 
+> [!WARNING] > **Experimental Version**: This is an enhanced fork of Director implementing horizontal scaling patterns (Redis, Read Replicas). While functionally complete, it has not yet been fully battle-tested in large-scale production environments. Use with caution.
+
 ---
 
 > **📋 Redis-Enabled Fork** - This fork adds:
